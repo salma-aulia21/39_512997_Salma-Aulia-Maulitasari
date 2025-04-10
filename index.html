@@ -1,0 +1,142 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Landing Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body class="bg-secondary text-white text-center p-5">
+  <h1 class="display-4"><strong>Selamat Datang di Web UTS Salma</strong></h1>
+  <p class="lead">Klik tombol di bawah untuk melihat hasil Rangkuman Kegiatan Praktikum SIGWEB Minggu 1-7</p>
+  <a href="https://salma-aulia21.github.io/esai-uts/" class="btn btn-light btn-lg">Lihat Rangkuman</a>
+</body>
+</html>
+
+<!-- main.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Salma</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <style>
+    #map { height: 400px; margin-top: 20px; }
+  </style>
+</head>
+<body class="bg-light">
+
+<div class="container mt-4">
+  <h3 class="text-warning">Pentingnya Sistem Informasi Geografis</h3>
+
+  <p><strong><em>Geodesi</em></strong> merupakan ilmu yang sangat penting dalam memahami struktur bumi dan berbagai fenomena yang terjadi di atasnya.</p>
+  <p>Program studi <span class="text-danger font-weight-bold">Geodesi UGM</span> menyediakan berbagai pembelajaran modern seperti <span class="font-italic">penginderaan jauh, grafika komputer dan visualisasi, dan SIG</span>.</p>
+
+  <p>Kunjungi situs resminya di sini: 
+    <a href="https://ugm.ac.id/id/prodi/teknik-geodesi/" target="_blank" class="text-warning font-weight-bold">Website Geodesi UGM</a>
+  </p>
+
+  <hr>
+
+  <h4 class="mt-4">Data Mahasiswa</h4>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr><th>Nama</th><th>NIM</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Salma Aulia Maulitasari</td><td>512997</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Peta Lokasi Fakultas-fakultas di UGM</h4>
+  <div id="map"></div>
+
+  <hr>
+
+  <h4>Form Validasi Pekerjaan</h4>
+  <form onsubmit="return validasiPassword()" class="mb-4">
+    <div class="form-group">
+      <label for="password">Masukkan Password:</label>
+      <input type="password" id="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+  <div id="error" class="text-danger font-weight-bold"></div>
+
+  <hr>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://rawcdn.githack.com/rowanwins/leaflet-easyPrint/gh-pages/dist/bundle.js"></script>
+
+<script>
+function validasiPassword() {
+            let password = document.getElementById("password").value;
+            
+            if (password !== "Selesai") {
+                alert("Password salah!");
+                return false; // Mencegah form dikirim jika password salah
+            }
+            
+            alert("Login berhasil!");
+            return true;
+        }
+
+var map = L.map('map').setView([-7.770, 110.377], 16);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.Control.geocoder().addTo(map);
+
+const fakultas = [
+  {
+    nama: "Fakultas Teknik",
+    lokasi: [-7.765274553147989, 110.372447322466],
+    img: "https://ft.ugm.ac.id/wp-content/uploads/sites/31/2024/07/ft.png",
+    desc: "Terdapat 8 departemen di lingkungan FT UGM, yaitu: Departemen Teknik Arsitektur dan Perencanaan, Departemen Teknik Elektro dan Teknologi Informasi, Departemen Teknik Nuklir dan Teknik Fisika, Departemen Teknik Geodesi, Departemen Teknik Geologi, Departemen Teknik Kimia, Departemen Teknik Mesin dan Industri, dan Departemen Teknik Sipil dan Lingkungan.",
+    loc: "https://maps.app.goo.gl/EwzvefPdL1RPP9jB6"
+  },
+  {
+    nama: "Fakultas Kedokteran",
+    lokasi: [-7.76935357980924, 110.37399512246608],
+    img: "https://asset-2.tstatic.net/tribunnews/foto/bank/images/Fakultas-kedokteran-UGM.jpg",
+    desc: "Fakultas Kedokteran (FK) Universitas Gadjah Mada (UGM) atau yang sekarang dikenal sebagai Fakultas Kedokteran, Kesehatan Masyarakat dan Keperawatan (FK-KMK) UGM, adalah fakultas kedokteran tertua di Indonesia yang berdiri pada tahun 1946.",
+    loc: "https://maps.app.goo.gl/6AKe7455EdemAeX46 "
+  },
+  {
+    nama: "Fakultas Farmasi",
+    lokasi: [-7.766853, 110.374208],
+    img: "https://farmasi.ugm.ac.id/wp-content/uploads/sites/15/2023/08/Lampiran_Berita_AD_Index.png ",
+    desc: "Fakultas Farmasi Universitas Gadjah Mada (UGM) merupakan fakultas yang memiliki sejarah panjang dan reputasi yang baik dalam bidang pendidikan farmasi di Indonesia.",
+    loc: "https://maps.app.goo.gl/LYyzZy5BPvL3Bb2a9"
+  },
+  {
+    nama: "Fakultas Hukum",
+    lokasi: [-7.770572765106763, 110.38112915130213],
+    img: "https://law.ugm.ac.id/wp-content/uploads/sites/9/2024/12/Press-Release-Nadra-Rahelya-Butar-Butar-scaled.jpg",
+    desc: "Fakultas Hukum UGM yang telah genap berusia 77 tahun pada 17 Februari 2023 merupakan fakultas hukum pertama yang didirikan oleh Republik Indonesia",
+    loc: "https://maps.app.goo.gl/2QDE9DqrwwWEb7Yp7"
+  },
+  {
+    nama: "Fakultas Kehutanan",
+    lokasi: [-7.767068517490824, 110.3809494942406],
+    img: "https://ugm.ac.id/wp-content/uploads/2020/10/23102016034258081307862270.jpg",
+    desc: "Fakultas Kehutanan UGM mulai tahun 2010 menjadi fakultas dengan satu program studi yaitu Program Studi Kehutanan (Forestry Study Program).",
+    loc: "https://maps.app.goo.gl/JgVK3sNFhtuSTEFu8 "
+  }
+];
+
+fakultas.forEach(f => {
+  L.marker(f.lokasi).addTo(map).bindPopup(`
+    <strong>${f.nama}</strong><br>
+    <img src="${f.img}" width="100"><br>
+    <b>Deskripsi:</b> ${f.desc}<br>
+    <a href="${f.loc}" target="_blank">Kunjungi Lokasi Fakultas Ini :)</a>
+  `);
+});
+
+</script>
+
+</body>
+</html>
